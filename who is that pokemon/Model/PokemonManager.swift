@@ -7,38 +7,38 @@
 
 import Foundation
 
+protocol PokemonManagerDelegate {
+    func didUpdatePokemon(pokemons: [PokemonModel])
+    func didFailWithError(error: Error)
+}
+
 struct PokemonManager {
     let pokemonUrl: String = "https://pokeapi.co/api/v2/pokemon?limit=100"
+    var delegate: PokemonManagerDelegate?
     
-    func fetchData(with url: String) {
+    func fecthPokemonData() {
+        perfromRequest(with: pokemonUrl)
+    }
+    
+    private func perfromRequest(with url: String) {
         // 1. Create URL
-        guard let newUrl = URL(string: url) else {
-            print("Error creating URL")
-            return
-        }
+        guard let newUrl = URL(string: url) else { return }
         // 2. Crreate URL session to fecth data
         let session = URLSession(configuration: .default)
         // 3. Create Task to handle data from fecth
         let task = session.dataTask(with: newUrl) { data, response, error in
             if error != nil {
-                print(error!)
-                return
+                self.delegate?.didFailWithError(error: error!)
             }
-            guard let safeData = data else {
-                print("Error with the data")
-                return
-            }
-            guard let pokemon = self.parseJSON(pokemonData: safeData) else {
-                print("Error prsing pokemon")
-                return
-            }
-            print(pokemon)
+            guard let safeData = data else { return }
+            guard let pokemons = self.parseJSON(pokemonData: safeData) else { return }
+            self.delegate?.didUpdatePokemon(pokemons: pokemons)
         }
         // 4. Ejecuta la tarea
         task.resume()
     }
     
-    func parseJSON(pokemonData: Data) -> [PokemonModel]? {
+    private func parseJSON(pokemonData: Data) -> [PokemonModel]? {
         let decoder = JSONDecoder()
         do {
             let decodeData = try decoder.decode(PokemonData.self, from: pokemonData)

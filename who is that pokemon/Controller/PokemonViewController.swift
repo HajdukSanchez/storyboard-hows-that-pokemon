@@ -14,11 +14,20 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var lableScore: UILabel!
     
+    lazy var pokemonManager = PokemonManager()
+    var randomPokemons: [PokemonModel] = []
+    var correctAnswer: String = ""
+    var correctAnswerImage: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         handleScoreText()
         createButtonsStyle()
+        
+        // Set into the pokemonManager instance the delegate defined in the extension
+        pokemonManager.delegate = self
+        pokemonManager.fecthPokemonData()
     }
     
     func handleScoreText() {
@@ -40,5 +49,36 @@ class PokemonViewController: UIViewController {
     
     @IBAction func buttonPressed(_ sender: UIButton) {
         print(sender.title(for: .normal) ?? "Nothing")
+    }
+}
+
+// Extend the functionality of the current controller class
+extension PokemonViewController: PokemonManagerDelegate {
+    func didUpdatePokemon(pokemons: [PokemonModel]) {
+        randomPokemons = pokemons.choose(4)
+        
+        let index = Int.random(in: 0...3)
+        let imageData = randomPokemons[index].imageUrl
+        correctAnswer = randomPokemons[index].name
+    }
+    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+extension Collection {
+    func choose(_ n: Int) -> Array<Element> {
+        // Get 4 random pokemons from the list
+        Array(shuffled().prefix(n))
+    }
+}
+
+extension Collection where Indices.Iterator.Element == Index {
+    // Override the method to get a value from and index
+    // That means, if we have a list of 4 elements and we want to get the index in the position 10,
+    // We are going to return a nil value and not an error
+    public subscript(safe index: Index) -> Iterator.Element? {
+        return (startIndex <= index && index < endIndex) ? self[index] : nil
     }
 }
