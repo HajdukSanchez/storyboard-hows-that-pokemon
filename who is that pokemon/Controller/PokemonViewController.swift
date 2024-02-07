@@ -15,6 +15,7 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var lableScore: UILabel!
     
     lazy var pokemonManager = PokemonManager()
+    lazy var imageManager = ImageManager()
     var randomPokemons: [PokemonModel] = []
     var correctAnswer: String = ""
     var correctAnswerImage: String = ""
@@ -27,6 +28,7 @@ class PokemonViewController: UIViewController {
         
         // Set into the pokemonManager instance the delegate defined in the extension
         pokemonManager.delegate = self
+        imageManager.delegate = self
         pokemonManager.fecthPokemonData()
     }
     
@@ -60,9 +62,22 @@ extension PokemonViewController: PokemonManagerDelegate {
         let index = Int.random(in: 0...3)
         let imageData = randomPokemons[index].imageUrl
         correctAnswer = randomPokemons[index].name
+        
+        // Get pokemon image URL
+        imageManager.fecthImageData(imageData)
     }
     
     func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+extension PokemonViewController: ImageManagerDelegate {
+    func didUpdateImage(pokemonImage: ImageModel) {
+        correctAnswerImage = pokemonImage.imageUrl
+    }
+    
+    func didFailWithErrorImage(error: Error) {
         print(error)
     }
 }
