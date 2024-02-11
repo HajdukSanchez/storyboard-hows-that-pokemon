@@ -70,13 +70,45 @@ class PokemonViewController: UIViewController {
     @IBAction func buttonPressed(_ sender: UIButton) {
         let userAnswer = sender.title(for: .normal) ?? ""
         if gameModel.checkAnswer(userAnswer, correctAnswer) {
-            uiLabelMessage.text = "Si, es un \(userAnswer)"
+            uiLabelMessage.text = "Si, es un \(userAnswer.capitalized)"
             uiLabelScore.text = "Puntaje: \(gameModel.score)"
             
             sender.layer.borderColor = UIColor.systemGreen.cgColor
-            sender.layer.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.1).cgColor
             sender.layer.borderWidth = 2
+            
+            // Set the correct image without effect
+            let url = URL(string: correctAnswerImage)
+            uiImage.kf.setImage(with: url)
+            
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+                // Get new pokemons to change answer
+                self.pokemonManager.fecthPokemonData()
+                self.uiLabelMessage.text = ""
+                sender.layer.borderWidth = 0
+            }
+        } else {
+            uiLabelMessage.text = "No, es un \(correctAnswer.capitalized)"
+            
+            sender.layer.borderColor = UIColor.systemRed.cgColor
+            sender.layer.borderWidth = 2
+            
+            // Set the correct image without effect
+            let url = URL(string: correctAnswerImage)
+            uiImage.kf.setImage(with: url)
+            
+            // Reset score
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
+                self.resetGame(sender)
+            }
         }
+    }
+    
+    func resetGame(_ sender: UIButton) {
+        self.pokemonManager.fecthPokemonData()
+        gameModel.setScore(score: 0)
+        uiLabelScore.text = "Puntaje: \(gameModel.score)"
+        uiLabelMessage.text = ""
+        sender.layer.borderWidth = 0
     }
 }
 
