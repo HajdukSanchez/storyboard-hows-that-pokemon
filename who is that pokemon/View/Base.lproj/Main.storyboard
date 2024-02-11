@@ -133,17 +133,17 @@
                         <outletCollection property="uiButtons" destination="O95-M6-Fow" collectionClass="NSMutableArray" id="tr1-0e-wh4"/>
                         <outletCollection property="uiButtons" destination="s8P-Tu-ouw" collectionClass="NSMutableArray" id="2BD-po-cdb"/>
                         <outletCollection property="uiButtons" destination="W7F-7Q-PUE" collectionClass="NSMutableArray" id="6m2-KK-mKf"/>
-                        <segue destination="For-mf-rOd" kind="presentation" identifier="goToResults" modalPresentationStyle="fullScreen" id="rRf-4W-uwv"/>
+                        <segue destination="For-mf-rOd" kind="presentation" identifier="goToResults" modalPresentationStyle="fullScreen" id="ncO-1y-69w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="121.53846153846153" y="105.92417061611374"/>
         </scene>
-        <!--Results View Controller-->
+        <!--Result View Controller-->
         <scene sceneID="rIj-8a-Kaa">
             <objects>
-                <viewController id="For-mf-rOd" customClass="ResultsViewController" customModule="who_is_that_pokemon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="For-mf-rOd" customClass="ResultViewController" customModule="who_is_that_pokemon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="Lsw-wP-l0m">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,6 +188,9 @@
                                         <buttonConfiguration key="configuration" style="filled" title="Jugar de nuevo">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="21"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="onPlayAgain:" destination="For-mf-rOd" eventType="touchUpInside" id="kRy-Go-46A"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -205,9 +208,12 @@
                             <constraint firstItem="1af-ZO-5SA" firstAttribute="bottom" secondItem="a8r-sb-KlI" secondAttribute="bottomMargin" constant="20" id="r4K-er-eIg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Oj2-6v-hZC"/>
                     <connections>
                         <outlet property="pokemonLabel" destination="bbB-gi-cHs" id="Mj5-qa-28y"/>
+                        <outlet property="ui:abelMessage" destination="bbB-gi-cHs" id="KSG-SO-4oj"/>
+                        <outlet property="uiImage" destination="9Ig-zH-xU7" id="ivs-1Z-wxk"/>
+                        <outlet property="uiLabelMessage" destination="bbB-gi-cHs" id="vEU-46-LMq"/>
+                        <outlet property="uiLabelScore" destination="zmE-qW-a4E" id="AGC-gh-jzk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jaT-i2-BTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
