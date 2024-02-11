@@ -6,17 +6,25 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PokemonViewController: UIViewController {
 
-    @IBOutlet var buttons: [UIButton]!
-    @IBOutlet weak var lableMessage: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var lableScore: UILabel!
+    @IBOutlet var uiButtons: [UIButton]!
+    @IBOutlet weak var uiLabelMessage: UILabel!
+    @IBOutlet weak var uiImage: UIImageView!
+    @IBOutlet weak var uiLabelScore: UILabel!
     
     lazy var pokemonManager = PokemonManager()
     lazy var imageManager = ImageManager()
-    var randomPokemons: [PokemonModel] = []
+    lazy var gameModel = GameModel()
+    
+    var randomPokemons: [PokemonModel] = [] {
+        didSet {
+            // set buttons after the value of the array change
+            setButtonTitles()
+        }
+    }
     var correctAnswer: String = ""
     var correctAnswerImage: String = ""
     
@@ -30,16 +38,17 @@ class PokemonViewController: UIViewController {
         pokemonManager.delegate = self
         imageManager.delegate = self
         pokemonManager.fecthPokemonData()
+        uiLabelMessage.text = ""
     }
     
     func handleScoreText() {
         // Update lable on start
-        lableScore.text = "Puntaje: 100"
+        uiLabelScore.text = "Puntaje: 0"
     }
     
     func createButtonsStyle() {
         // Change each button on start
-        for button in buttons {
+        for button in uiButtons {
             button.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 2)
             button.layer.shadowOpacity = 1
@@ -49,8 +58,25 @@ class PokemonViewController: UIViewController {
         }
     }
     
+    func setButtonTitles() {
+        // Set titles on each button based on 4 pokemons getted
+        for (index, button) in uiButtons.enumerated() {
+            DispatchQueue.main.async {
+                button.setTitle(self.randomPokemons[safe: index]?.name.capitalized, for: .normal)
+            }
+        }
+    }
+    
     @IBAction func buttonPressed(_ sender: UIButton) {
-        print(sender.title(for: .normal) ?? "Nothing")
+        let userAnswer = sender.title(for: .normal) ?? ""
+        if gameModel.checkAnswer(userAnswer, correctAnswer) {
+            uiLabelMessage.text = "Si, es un \(userAnswer)"
+            uiLabelScore.text = "Puntaje: \(gameModel.score)"
+            
+            sender.layer.borderColor = UIColor.systemGreen.cgColor
+            sender.layer.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.1).cgColor
+            sender.layer.borderWidth = 2
+        }
     }
 }
 
@@ -75,6 +101,15 @@ extension PokemonViewController: PokemonManagerDelegate {
 extension PokemonViewController: ImageManagerDelegate {
     func didUpdateImage(pokemonImage: ImageModel) {
         correctAnswerImage = pokemonImage.imageUrl
+        // We use this to handle process async while the UI is loading
+        DispatchQueue.main.async {
+            // Create an url to get the image async
+            let url = URL(string: pokemonImage.imageUrl)
+            // Create the black effect for the image
+            let effectImage = ColorControlsProcessor(brightness: -1, contrast: 1, saturation: 1, inputEV: 0)
+            // Set the image and the effect to the component
+            self.uiImage.kf.setImage(with: url, options: [.processor(effectImage)])
+        }
     }
     
     func didFailWithErrorImage(error: Error) {

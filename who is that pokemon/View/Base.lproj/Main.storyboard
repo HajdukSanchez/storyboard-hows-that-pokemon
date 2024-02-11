@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -126,13 +125,13 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="image" destination="KuH-Tb-DHX" id="QIo-zV-D8x"/>
-                        <outlet property="lableMessage" destination="zwc-BK-jXE" id="RCq-M7-P74"/>
-                        <outlet property="lableScore" destination="mXW-d2-WIl" id="dbl-aj-bPZ"/>
-                        <outletCollection property="buttons" destination="YPE-G3-QOR" collectionClass="NSMutableArray" id="wJ9-ea-X1r"/>
-                        <outletCollection property="buttons" destination="O95-M6-Fow" collectionClass="NSMutableArray" id="tr1-0e-wh4"/>
-                        <outletCollection property="buttons" destination="s8P-Tu-ouw" collectionClass="NSMutableArray" id="2BD-po-cdb"/>
-                        <outletCollection property="buttons" destination="W7F-7Q-PUE" collectionClass="NSMutableArray" id="6m2-KK-mKf"/>
+                        <outlet property="uiImage" destination="KuH-Tb-DHX" id="QIo-zV-D8x"/>
+                        <outlet property="uiLabelMessage" destination="zwc-BK-jXE" id="RCq-M7-P74"/>
+                        <outlet property="uiLabelScore" destination="mXW-d2-WIl" id="dbl-aj-bPZ"/>
+                        <outletCollection property="uiButtons" destination="YPE-G3-QOR" collectionClass="NSMutableArray" id="wJ9-ea-X1r"/>
+                        <outletCollection property="uiButtons" destination="O95-M6-Fow" collectionClass="NSMutableArray" id="tr1-0e-wh4"/>
+                        <outletCollection property="uiButtons" destination="s8P-Tu-ouw" collectionClass="NSMutableArray" id="2BD-po-cdb"/>
+                        <outletCollection property="uiButtons" destination="W7F-7Q-PUE" collectionClass="NSMutableArray" id="6m2-KK-mKf"/>
                         <segue destination="For-mf-rOd" kind="presentation" identifier="goToResults" modalPresentationStyle="fullScreen" id="rRf-4W-uwv"/>
                     </connections>
                 </viewController>
