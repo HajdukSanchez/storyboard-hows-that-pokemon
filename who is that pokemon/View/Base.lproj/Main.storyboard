@@ -133,7 +133,7 @@
                         <outletCollection property="uiButtons" destination="O95-M6-Fow" collectionClass="NSMutableArray" id="tr1-0e-wh4"/>
                         <outletCollection property="uiButtons" destination="s8P-Tu-ouw" collectionClass="NSMutableArray" id="2BD-po-cdb"/>
                         <outletCollection property="uiButtons" destination="W7F-7Q-PUE" collectionClass="NSMutableArray" id="6m2-KK-mKf"/>
-                        <segue destination="For-mf-rOd" kind="presentation" identifier="goToResults" modalPresentationStyle="fullScreen" id="ncO-1y-69w"/>
+                        <segue destination="For-mf-rOd" kind="presentation" identifier="goToResults" modalPresentationStyle="pageSheet" id="ncO-1y-69w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -145,11 +145,11 @@
             <objects>
                 <viewController id="For-mf-rOd" customClass="ResultViewController" customModule="who_is_that_pokemon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="Lsw-wP-l0m">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="a8r-sb-KlI" userLabel="Container">
-                                <rect key="frame" x="0.0" y="20" width="390.33333333333331" height="804"/>
+                                <rect key="frame" x="0.0" y="20" width="390.33333333333331" height="794"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¡OOOPS! Perdiste" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QKP-hv-9y9">
                                         <rect key="frame" x="91.666666666666686" y="0.0" width="207" height="30"/>
@@ -159,7 +159,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SSZ-Lw-bzB" userLabel="Pokemon">
-                                        <rect key="frame" x="67.666666666666686" y="166.33333333333334" width="255" height="300.33333333333326"/>
+                                        <rect key="frame" x="67.666666666666686" y="162.99999999999997" width="255" height="300.33333333333326"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pika" translatesAutoresizingMaskIntoConstraints="NO" id="9Ig-zH-xU7">
                                                 <rect key="frame" x="0.0" y="0.0" width="255" height="255"/>
@@ -177,13 +177,13 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Perdiste, tu puntaje fue de 25." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmE-qW-a4E">
-                                        <rect key="frame" x="52.333333333333343" y="603" width="285.66666666666663" height="25.333333333333371"/>
+                                        <rect key="frame" x="52.333333333333343" y="596.33333333333337" width="285.66666666666663" height="25.333333333333371"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl4-Xb-bgQ">
-                                        <rect key="frame" x="20" y="764.66666666666663" width="350.33333333333331" height="39.333333333333371"/>
+                                        <rect key="frame" x="20" y="754.66666666666663" width="350.33333333333331" height="39.333333333333371"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Jugar de nuevo">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="21"/>
@@ -209,10 +209,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pokemonLabel" destination="bbB-gi-cHs" id="Mj5-qa-28y"/>
-                        <outlet property="ui:abelMessage" destination="bbB-gi-cHs" id="KSG-SO-4oj"/>
                         <outlet property="uiImage" destination="9Ig-zH-xU7" id="ivs-1Z-wxk"/>
-                        <outlet property="uiLabelMessage" destination="bbB-gi-cHs" id="vEU-46-LMq"/>
+                        <outlet property="uiLabelMessage" destination="bbB-gi-cHs" id="j34-K9-xJ8"/>
                         <outlet property="uiLabelScore" destination="zmE-qW-a4E" id="AGC-gh-jzk"/>
                     </connections>
                 </viewController>

@@ -87,19 +87,20 @@ class PokemonViewController: UIViewController {
                 sender.layer.borderWidth = 0
             }
         } else {
-            uiLabelMessage.text = "No, es un \(correctAnswer.capitalized)"
-            
-            sender.layer.borderColor = UIColor.systemRed.cgColor
-            sender.layer.borderWidth = 2
-            
-            // Set the correct image without effect
-            let url = URL(string: correctAnswerImage)
-            uiImage.kf.setImage(with: url)
-            
             // Reset score
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { timer in
                 self.resetGame(sender)
             }
+            self.performSegue(withIdentifier: "goToResults", sender: self)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToResults" {
+            let destination = segue.destination as! ResultViewController
+            destination.pokemonName = correctAnswer
+            destination.pokemonImage = correctAnswerImage
+            destination.finalScore = gameModel.score
         }
     }
     
